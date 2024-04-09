@@ -7,14 +7,14 @@
 
 #define MAX_LIFE 5
 #define MAX_WORD_LENGTH 20
-#define NUM_WORDS 5
+#define NUM_WORDS 10
 
 // Global variables for Hangaroo game
 char sentence[MAX_WORD_LENGTH];
 char displaySentence[MAX_WORD_LENGTH];
 int life = MAX_LIFE;
 int sentenceLength;
-char* words[NUM_WORDS] = {"programming", "hangaroo", "multithreading", "linux"};
+char* words[NUM_WORDS] = {"programming", "hangaroo", "multithreading", "linux", "mutex", "semaphores", "deadlock", "race condition", "thread"};
 pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 int userInputThreadCompleted = 0;
 
