@@ -1,6 +1,7 @@
 // multithreading.c
 
 #include "multithreading.h"
+#include "hangaroo.h"
 
 // Function implementations for multithreading library
 int create_thread(pthread_t *thread, void *(*start_routine)(void *), void *arg) {

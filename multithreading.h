@@ -1,4 +1,5 @@
 // multithreading.h
+#include "hangaroo.h"
 
 #ifndef MULTITHREADING_H
 #define MULTITHREADING_H
