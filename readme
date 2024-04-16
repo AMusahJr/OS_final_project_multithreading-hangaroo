@@ -10,7 +10,7 @@ Features
 - The game gives feedback on correct and incorrect guesses.
 - The program gives a visual display of the current word and remaining lives.
 
-## Execution
+Execution
 
 1. To compile the code, use a C compiler to compile the source code into an executable binary. 
    gcc -o hangaroo hangaroo.c -pthread
