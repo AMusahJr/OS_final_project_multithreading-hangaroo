@@ -10,6 +10,7 @@ Features
 - The game gives feedback on correct and incorrect guesses.
 - The program gives a visual display of the current word and remaining lives.
 
+
 Execution
 
 1. To compile the code, use a C compiler to compile the source code into an executable binary. 
@@ -33,4 +34,11 @@ To host the Hangaroo game on a local server:
 
 1. Compile the code and run the executable on your machine.
 2. You can access the game by running the executable on your machine and interacting with it through the terminal.
+
+
+
+Tests
+1. The program should prompt the user with an invalid input alert when a letter or a number greater than 3 is entered when asked about the difficulty level.
+2. The program should alert the user with an invalid input signal when the user enters a number instead of a letter.
+3. The program should prevent the user from entering a correct letter or an incorrect letter twice.
 

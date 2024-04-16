@@ -23,6 +23,8 @@ char* words_hard[NUM_WORDS_HARD] = {"operating", "networking", "synchronization"
 pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 int userInputThreadCompleted = 0;
 
+int alreadyGuessed[26] = {0}; // Array to track already guessed letters
+
 void generateWord(int difficulty_level) {
     // Select a random word based on the difficulty level
     int index;
@@ -58,23 +60,15 @@ void displayGameState() {
     printf("Life: %d\n", life);
 }
 
-void *getUserInput(void *arg) {
-    char input;
+void *processUserInput(void *arg) {
+    char input = *((char*) arg);
 
-    printf("Enter a letter :\n");
-
-    while (life > 0) {
-        // Read input character
-        scanf(" %c", &input);
-
-        // Check if the input is a letter
-        if (!isalpha(input)) {
-            printf("Invalid input. Please enter a letter.\n");
-            continue; // Skip the rest of the loop iteration
-        }
-
-        pthread_mutex_lock(&mutex);
-        int revealed = 0;
+    pthread_mutex_lock(&mutex);
+    int revealed = 0;
+    if (alreadyGuessed[tolower(input) - 'a'] == 1) {
+        printf("You have already guessed this letter. Please try another one.\n");
+    } else {
+        alreadyGuessed[tolower(input) - 'a'] = 1; // Mark the letter as already guessed
         for (int i = 0; i < wordLength; ++i) {
             if (tolower(word[i]) == tolower(input)) {
                 displayWord[i] = word[i];
@@ -91,18 +85,18 @@ void *getUserInput(void *arg) {
 
         displayGameState(); // Display updated word after each guess
 
-        if (strcmp(displayWord, word) == 0 || life == 0) {
+        if (strcmp(displayWord, word) == 0) {
+            printf("Congratulations! You guessed the word correctly: %s\n", word);
             userInputThreadCompleted = 1;
-            pthread_mutex_unlock(&mutex);
-            break;
+        } else if (life == 0) {
+            printf("Oops! You have ran out of lives. The correct word was: %s\n", word);
+            userInputThreadCompleted = 1;
         }
-
-        pthread_mutex_unlock(&mutex);
     }
+    pthread_mutex_unlock(&mutex);
 
-    // Display the word after lives are finished
-    if (life == 0) {
-        printf("Oops! You have ran out of lives. The correct word was: %s\n", word);
+    if (userInputThreadCompleted) {
+        exit(EXIT_SUCCESS);
     }
 
     return NULL;
@@ -130,17 +124,25 @@ int main() {
     // Generate random word based on the chosen difficulty level
     generateWord(difficulty_level);
 
-    // Start user input thread
-    pthread_t userInputThread;
-    pthread_create(&userInputThread, NULL, getUserInput, NULL);
-
     // Main game loop
     while (!userInputThreadCompleted) {
+        // Read input character
+        char input;
+        printf("Enter a letter: ");
+        scanf(" %c", &input);
 
+        // Check if the input is a letter
+        if (!isalpha(input)) {
+            printf("Invalid input. Please enter a letter.\n");
+            continue; // Skip processing invalid input
+        }
+
+        // Start a new thread to process the user input
+        pthread_t inputThread;
+        pthread_create(&inputThread, NULL, processUserInput, (void*) &input);
+        pthread_detach(inputThread); // Detach the thread so it can run independently
     }
 
-    // Wait for user input thread to finish
-    pthread_join(userInputThread, NULL);
     pthread_mutex_destroy(&mutex);
 
     return 0;
