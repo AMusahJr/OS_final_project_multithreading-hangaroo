@@ -1,0 +1,36 @@
+Hangaroo Game
+
+Hangaroo is a simple word guessing game implemented in C. Players are tasked with guessing letters to reveal a hidden word. The game provides multiple difficulty levels and keeps track of the player's remaining lives.
+
+Features
+
+- There are three difficulty levels: Easy, Medium, and Hard.
+- The game uses a random selection of words based on the chosen difficulty level.
+- The game requires user input for guessing letters.
+- The game gives feedback on correct and incorrect guesses.
+- The program gives a visual display of the current word and remaining lives.
+
+## Execution
+
+1. To compile the code, use a C compiler to compile the source code into an executable binary. 
+   gcc -o hangaroo hangaroo.c -pthread
+
+2. Next, run the executable. Execute the compiled binary to start the game.
+   ./hangaroo
+   
+
+3. Make sure to read the instructions and follow them carefully. Choose a difficulty level when prompted and input your guesses when prompted to guess a letter.
+
+4. To play the Game, guess letters to reveal the hidden word. The game will provide feedback on your guesses and display the current word state and remaining lives.
+
+5.  The game ends when the word is fully revealed or when the player runs out of lives.
+
+
+
+Local Server
+
+To host the Hangaroo game on a local server:
+
+1. Compile the code and run the executable on your machine.
+2. You can access the game by running the executable on your machine and interacting with it through the terminal.
+
