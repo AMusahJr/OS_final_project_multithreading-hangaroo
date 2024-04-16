@@ -61,11 +61,17 @@ void displayGameState() {
 void *getUserInput(void *arg) {
     char input;
 
-    
     printf("Enter a letter :\n");
 
     while (life > 0) {
+        // Read input character
         scanf(" %c", &input);
+
+        // Check if the input is a letter
+        if (!isalpha(input)) {
+            printf("Invalid input. Please enter a letter.\n");
+            continue; // Skip the rest of the loop iteration
+        }
 
         pthread_mutex_lock(&mutex);
         int revealed = 0;
@@ -115,7 +121,6 @@ void testHangaroo() {
 int main() {
     srand(time(NULL));
 
-    
     testHangaroo();
 
     int difficulty_level;
@@ -131,7 +136,7 @@ int main() {
 
     // Main game loop
     while (!userInputThreadCompleted) {
-    
+
     }
 
     // Wait for user input thread to finish
