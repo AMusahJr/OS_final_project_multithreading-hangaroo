@@ -61,7 +61,7 @@ void displayGameState() {
 void *getUserInput(void *arg) {
     char input;
 
-    // Display user prompt outside the loop for better visibility
+    
     printf("Enter a letter :\n");
 
     while (life > 0) {
@@ -96,7 +96,7 @@ void *getUserInput(void *arg) {
 
     // Display the word after lives are finished
     if (life == 0) {
-        printf("Oops! You ran out of lives. The word was: %s\n", word);
+        printf("Oops! You have ran out of lives. The correct word was: %s\n", word);
     }
 
     return NULL;
@@ -115,7 +115,7 @@ void testHangaroo() {
 int main() {
     srand(time(NULL));
 
-    // Run explicit testing procedures
+    
     testHangaroo();
 
     int difficulty_level;
@@ -131,7 +131,7 @@ int main() {
 
     // Main game loop
     while (!userInputThreadCompleted) {
-        // No changes needed in the main loop
+    
     }
 
     // Wait for user input thread to finish
